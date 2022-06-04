@@ -5,10 +5,13 @@ require "net/http"
 
 # Allows to return metadata attributes
 module Ipgeobase
+  IP_API_ADDRESS = "http://ip-api.com/xml/"
+
   autoload :MetadataBuilder, "ipgeobase/metadata_builder"
+
   class << self
     def lookup(ip)
-      response = Net::HTTP.get(URI("http://ip-api.com/xml/#{ip if ip&.size&.positive?}"))
+      response = Net::HTTP.get(URI("#{IP_API_ADDRESS}#{ip if ip&.size&.positive?}"))
       MetadataBuilder.parse(response)
     end
   end

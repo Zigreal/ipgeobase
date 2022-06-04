@@ -5,5 +5,3 @@ require "ipgeobase"
 
 require "minitest/autorun"
 require "webmock/minitest"
-
-require "features/support/xml_response"

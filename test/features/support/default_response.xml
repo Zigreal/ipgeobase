@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query>
+  <status>success</status>
+  <country>Russia</country>
+  <countryCode>Ru</countryCode>
+  <region>MOW</region>
+  <regionName>Moscow</regionName>
+  <city>Moscow</city>
+  <zip>104015</zip>
+  <lat>55.7483</lat>
+  <lon>37.6171</lon>
+  <timezone>Europe/Moscow</timezone>
+  <isp>Moscow Local Telephone Network (PJSC MGTS)</isp>
+  <org>Pjsc Mgts)</org>
+  <as>AS25513 PJSC Moscow city telephone network</as>
+  <query>46.138.21.18</query>
+</query>

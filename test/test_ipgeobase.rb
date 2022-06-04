@@ -3,12 +3,17 @@
 require "test_helper"
 
 class TestIpgeobase < Minitest::Test
+  # rubocop:disable Style/StringConcatenation
+  DEFAULT_RESPONSE_DIR = Dir.pwd + "/test/features/support/default_response.xml"
+  VALID_RESPONSE_DIR = Dir.pwd + "/test/features/support/valid_response.xml"
+  # rubocop:enable Style/StringConcatenation
   def test_that_it_has_a_version_number
     refute_nil ::Ipgeobase::VERSION
   end
 
   def test_lookup
-    stub_request(:get, "http://ip-api.com/xml/8.8.8.8").to_return({ body: VALID_RESPONSE })
+    valid_response = File.open(VALID_RESPONSE_DIR, &:read)
+    stub_request(:get, "http://ip-api.com/xml/8.8.8.8").to_return({ body: valid_response })
 
     ip_meta = Ipgeobase.lookup("8.8.8.8")
     assert(ip_meta.city == "Ashburn")
@@ -19,7 +24,8 @@ class TestIpgeobase < Minitest::Test
   end
 
   def test_lookup_with_empty_ip
-    stub_request(:get, "http://ip-api.com/xml/").to_return({ body: RESPONSE_FOR_EMPTY_IP })
+    default_response = File.open(DEFAULT_RESPONSE_DIR, &:read)
+    stub_request(:get, "http://ip-api.com/xml/").to_return({ body: default_response })
 
     ip_meta = Ipgeobase.lookup("")
     assert(ip_meta.city == "Moscow")
@@ -30,7 +36,8 @@ class TestIpgeobase < Minitest::Test
   end
 
   def test_lookup_with_nil
-    stub_request(:get, "http://ip-api.com/xml/").to_return({ body: RESPONSE_FOR_EMPTY_IP })
+    default_response = File.open(DEFAULT_RESPONSE_DIR, &:read)
+    stub_request(:get, "http://ip-api.com/xml/").to_return({ body: default_response })
 
     ip_meta = Ipgeobase.lookup(nil)
     assert(ip_meta.city == "Moscow")
